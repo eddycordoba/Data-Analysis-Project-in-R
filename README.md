@@ -1,6 +1,8 @@
 # Data-Analysis-Project-in-R
 Analyzing smart device usage data in order to gain insights of consumer use.
+
 ---
+
 title: "Bellabeat Case Study Using R"
 author: "Jose Eduardo Cordoba"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
@@ -10,7 +12,9 @@ output:
   html_document: default
 editor_options:
   chunk_output_type: console
+
 ---
+
 
 
 ## **About The Company**  
