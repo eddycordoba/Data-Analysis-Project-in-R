@@ -698,4 +698,78 @@ Introduce personalized insights: The data shows that users are interested in rec
 
 Introduce new subscription packages: Based on the data, users are primarily interested in tracking their sleep and activity levels. Bellabeat should consider introducing new subscription packages that cater specifically to these needs and offer additional value, such as personalized coaching and access to exclusive content.
 
-Overall, Bellabeat should continue to prioritize user engagement, personalization, and value-
+Overall, Bellabeat should continue to prioritize user engagement, personalization, and value. In addition to the previous recommendations mentioned,the following recommendations should be a great way to enhance and improve the user experience with Bellabeat products, each has a demonstration of the a clear path for implementing them with concrete examples of how to do so provided:
+
+1. **Segmentation for Personalization:**
+ Recommendation: Consider segmenting users based on their activity levels and sleep patterns to provide more personalized recommendations.
+Why: Personalization can greatly enhance user engagement and satisfaction. By tailoring    recommendations to specific user profiles, you can offer more relevant insights.
+Example:
+
+```
+# Segment users based on activity levels
+user_segments <- daily_activity_cleaned %>%
+  mutate(activity_level = case_when(
+    total_steps >= 10000 ~ "Active",
+    total_steps >= 5000 ~ "Moderate",
+    TRUE ~ "Inactive"
+  ))
+
+# Provide personalized recommendations for each segment
+personalized_recommendations <- user_segments %>%
+  group_by(activity_level) %>%
+  summarise(
+    avg_steps = mean(total_steps),
+    avg_sleep = mean(total_hours_asleep)
+  )
+```
+2. **Behavior Change Interventions:**
+   Recommendation: Implement behavior change interventions within the Bellabeat app to encourage users to increase their physical activity and improve their sleep quality.
+Why: Providing actionable interventions can motivate users to make positive changes in their lifestyle, which aligns with their goals.
+Example:
+
+```
+# Create behavior change interventions based on user data
+intervention_messages <- user_segments %>%
+  mutate(intervention_message = case_when(
+    activity_level == "Inactive" & total_hours_asleep < 7 ~ "Try to increase your daily steps and get more sleep for better health.",
+    activity_level == "Moderate" & total_hours_asleep < 7 ~ "You're doing well with activity, but focus on improving your sleep for optimal health.",
+    activity_level == "Inactive" & total_hours_asleep >= 7 ~ "Start with increasing your daily steps to improve your health.",
+    TRUE ~ "Keep up the good work!"
+  ))
+```
+
+3. **Enhanced Visualization:**
+   Recommendation: Develop interactive data visualizations within the app to help users better understand their progress over time.
+Why: Interactive visualizations can engage users and make data more accessible and actionable.
+Example (using the Shiny package in R for interactive visualization):
+
+```
+# Create a Shiny app for interactive data visualization
+library(shiny)
+
+ui <- fluidPage(
+  titlePanel("Bellabeat Health Tracker"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("user_id", "Select User:", unique(user_segments$user_id))
+    ),
+    mainPanel(
+      plotOutput("activity_plot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$activity_plot <- renderPlot({
+    # Create an interactive plot based on user selection
+    selected_user <- filter(user_segments, user_id == input$user_id)
+    ggplot(selected_user, aes(x = activity_date, y = total_steps)) +
+      geom_line() +
+      labs(title = "Daily Activity Trend", x = "Date", y = "Total Steps")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
