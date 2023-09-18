@@ -1,16 +1,17 @@
 # Data-Analysis-Project-in-R
 Analyzing smart device usage data in order to gain insights of consumer use.
 
-```
+```yaml
 title: "Bellabeat Case Study Using R"
 author: "Jose Eduardo Cordoba"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
-word_document: default
-pdf_document: default
-html_document: default
+  word_document: default
+  pdf_document: default
+  html_document: default
 editor_options:
-chunk_output_type: console
+  chunk_output_type: console
+
 ```
 
 
